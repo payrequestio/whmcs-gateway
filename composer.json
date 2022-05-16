@@ -1,0 +1,27 @@
+{
+    "name": "payrequest/whmcs-gateway-module",
+    "description": "PayRequest Gateway module for the WHMCS Billing Automation Platform",
+    "keywords": [
+        "whmcs",
+        "web host automation platform",
+        "third party gateway module",
+        "gateway module",
+        "third party gateway",
+        "payrequest"
+    ],
+    "homepage": "https://payrequest.io/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "PayRequest",
+            "email": "info@payrequest.io",
+            "homepage": "https://payrequest.io/",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@payrequest.io",
+        "forum": "https://payrequest.io/",
+        "wiki": "https://help.payrequest.io/"
+    }
+}
