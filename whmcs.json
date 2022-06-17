@@ -1,5 +1,5 @@
 {
-    "schema": "1.0",
+    "schema": "1.1",
     "type": "whmcs-gateways",
     "name": "payrequest-gateway-module",
     "license": "MIT",
@@ -17,16 +17,16 @@
         "filename": "logo.png"
     },
     "support": {
-        "homepage": "https:\/\/www.whmcs.com\/", 
-        "learn_more": "https:\/\/www.whmcs.com\/tour", 
-        "email": "support@whmcs.com", 
-        "support_url": "https:\/\/support.whmcs.com\/",
-        "docs_url": "https:\/\/developers.whmcs.com\/payment-gateways\/"
+        "homepage": "https:\/\/www.payrequest.io\/",
+        "learn_more": "https:\/\/www.payrequest.io\/", 
+        "email": "support@payrequest.io", 
+        "support_url": "https:\/\/help.payrequest.io\/en\/",
+        "docs_url": "https:\/\/help.payrequest.io\/en\/"
     },
     "authors": [
         {
-            "name": "WHMCS",
-            "homepage": "https:\/\/www.whmcs.com\/"
+            "name": "PayRequest",
+            "homepage": "https:\/\/www.payrequest.io\/"
         }
     ]
 }
