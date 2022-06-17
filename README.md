@@ -26,7 +26,7 @@ Compatible with all WHMCS versions that are [supported by WHMCS](https://docs.wh
 
 ## Mail variables ##
 
-The following variables are added with this plugin and can be used in the templates mentioned in [Usage](#usage).
+The following variables are added with this plugin and can be used in the templates mentioned in [Usage](#mail-variable-usage).
 
 | Variable                          | Description                                                                |
 |-----------------------------------|----------------------------------------------------------------------------|  
