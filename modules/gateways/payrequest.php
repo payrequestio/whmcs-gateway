@@ -29,7 +29,7 @@ function payrequest_MetaData(): array
 {
     return [
         'DisplayName' => 'PayRequest Gateway Module',
-        'APIVersion' => '1.1',
+        'APIVersion' => '1.2',
         'DisableLocalCreditCardInput' => true,
         'TokenisedStorage' => false,
     ];
