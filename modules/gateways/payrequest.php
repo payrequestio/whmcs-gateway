@@ -73,15 +73,20 @@ function payrequest_ApiCall(string $url = '/', array $variables = []): ?object
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($variables));
-	$response = curl_exec($ch);
-	if (curl_error($ch)){
-		payrequest_Log(__FUNCTION__, $variables, '"' . $url . '" returned the following error: ' . curl_error($ch));
-		return null;
-	}
-	curl_close($ch);
-	/** @var object $data */
-	$data = json_decode($response);
-	return is_object($data)?$data:null;
+        $response = curl_exec($ch);
+        if (curl_error($ch)){
+                payrequest_Log(__FUNCTION__, $variables, '"' . $url . '" returned the following error: ' . curl_error($ch));
+                curl_close($ch);
+                return null;
+        }
+        curl_close($ch);
+        /** @var object $data */
+        $data = json_decode($response);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+                payrequest_Log(__FUNCTION__, $variables, 'Unable to parse API response', $response);
+                return null;
+        }
+        return is_object($data) ? $data : null;
 }
 
 /**
@@ -153,28 +158,27 @@ function payrequest_link(array $params = []): string
     $moduleName = $params['paymentmethod'];
     $whmcsVersion = $params['whmcsVersion'];
 
-	$data = [
-		'token' => $params['apiKey'],
-		'type' => 'paymentlink',
-		'title' => $invoiceId,
-		'amount' => $amount,
-		'currency', $currencyCode,
-		'name' => $firstname." ".$lastname,
-		'email' => $email,
-		'description' => $description,
-		'return' => 'response',
-		'response' => $returnUrl,
-		'testmode' => $testMode,
-		'website' => $systemUrl,
-		'callback' => $systemUrl . '/modules/gateways/callback/' . $moduleName . '.php'
-	];
-	$call = payrequest_ApiCall('/create', $data);
-	try{
-		$url = $call->url;
-	}catch(Exception $e){
-		payrequest_Log(__FUNCTION__, $data, $e->getMessage());
-		return false;
-	}
+        $data = [
+                'token' => $apiKey,
+                'type' => 'paymentlink',
+                'title' => $invoiceId,
+                'amount' => $amount,
+                'currency' => $currencyCode,
+                'name' => $firstname . " " . $lastname,
+                'email' => $email,
+                'description' => $description,
+                'return' => 'response',
+                'response' => $returnUrl,
+                'testmode' => $testMode,
+                'website' => $systemUrl,
+                'callback' => $systemUrl . '/modules/gateways/callback/' . $moduleName . '.php'
+        ];
+        $call = payrequest_ApiCall('/create', $data);
+        if (!$call || empty($call->url)) {
+                payrequest_Log(__FUNCTION__, $data, 'Invalid API response', $call);
+                return '';
+        }
+        $url = $call->url;
 
     $htmlOutput = '<form method="get" action="' . $url . '">';
     $htmlOutput .= '<input type="submit" value="' . $langPayNow . '" />';
