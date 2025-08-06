@@ -16,11 +16,16 @@ if (!$gatewayParams['type']) {
 }
 
 // Retrieve data returned in payment gateway callback
-$success = $_POST["status"];
-$invoiceId = $_POST["title"];
-$transactionId = $_POST["link"];
-$paymentAmount = $_POST["amount"];
+$success = $_POST['status'] ?? '';
+$invoiceId = $_POST['title'] ?? '';
+$transactionId = $_POST['link'] ?? '';
+$paymentAmount = $_POST['amount'] ?? 0;
 $paymentFee = 0;
+
+if ($success === '' || $invoiceId === '' || $transactionId === '') {
+    logTransaction($gatewayParams['name'], $_POST, 'Missing callback parameters');
+    die('Invalid callback data');
+}
 
 $transactionStatus = $success==='PAID' ? 'Success' : 'Failure';
 
